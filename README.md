@@ -1,4 +1,4 @@
 tag-generator
 =============
 
-Die Projekte des Shacks sollen getaggt werden
+Die Projekte des shacks sollen getaggt werden
