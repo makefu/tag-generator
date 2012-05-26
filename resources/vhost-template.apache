@@ -1,0 +1,13 @@
+<VirtualHost *:80>
+    ServerAdmin WEBMASTER@EXAMPLE.COM
+    ServerName TAG-GENERATOR.EXAMPLE.COM
+
+    DocumentRoot PROJECT_PATH/static
+    ErrorLog /var/log/apache2/tag-generator.error.log
+    CustomLog /var/log/apache2/tag-generator.access.log combined
+
+
+    WSGIScriptAlias / PROJECT_PATH/bin/application.wsgi
+
+    Alias /static PROJECT_PATH/static
+</VirtualHost>
