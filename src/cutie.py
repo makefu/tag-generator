@@ -7,15 +7,15 @@ text = "Es ist verboten toten Kojoten die Hoden zu verknoten!"
 
 
 #----------------------------------------
-im = Image.open("resources/A6_300dpi.png")
-qr = Image.open("qrcode.png")
+im = Image.open("../resources/A6_300dpi.png")
+qr = Image.open("../examples/qrcode.png")
 qr.convert('RGB')
 im.convert('RGB')
 headingFontsize = 70
-headingFont = ImageFont.truetype("resources/arialbd.ttf", headingFontsize)
+headingFont = ImageFont.truetype("../resources/arialbd.ttf", headingFontsize)
 
 textFontsize = 40
-textFont = ImageFont.truetype("resources/arial.ttf", textFontsize)
+textFont = ImageFont.truetype("../resources/arial.ttf", textFontsize)
 
 offsetX = 340  #offset for the shackspace logo on the leftside
 
