@@ -4,8 +4,10 @@
 #this is qrencode v.1.01 code
 #sudo easy_install qrencode
 import qrencode
+import sys
 
-
-(version, size, img) = qrencode.encode_scaled('https://shackspace.de/wiki/doku.php', 500, level=3, version=3)
-img.save('qrcode.png')
+width = 500
+content = sys.argv[1]
+(version, size, img) = qrencode.encode_scaled(content, width,  level=3, version=5)
+img.save('qrcode.png', "PNG")
 
