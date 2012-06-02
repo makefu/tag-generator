@@ -28,3 +28,6 @@ pip-log.txt
 
 #jetbrains' IDE
 .idea/
+
+#vim swap files
+.swp
