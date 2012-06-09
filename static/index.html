@@ -1,11 +1,38 @@
 <html>
-    <head>
-        <title>Tag Test</title>
-    </head>
-    <body>
-        <h1>mal sehen</h1>
-    <!--
-        Form here
-    -->
-    </body>
+<head>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript" src="/static/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="/static/index.js"></script>
+</head>
+<body>
+<form method="POST" action="/">
+    <label for="owner-name">Owner</label>
+    <input type="text" id="owner-name" name="owner-name">
+    <br/>
+
+    <label for="owner-email">E-Mail</label>
+    <input type="text" id="owner-email" name="owner-email">
+    <br/>
+
+    <label for="item-type-project">Projekt</label>
+    <input type="radio" name="item-type" id="item-type-project" value="item-type-project">
+    <label for="item-type-box">Box</label>
+    <input type="radio" name="item-type" id="item-type-box" value="item-type-box">
+    <br/>
+
+    <div id="item-details">
+        <label for="wiki-url">URL im shack-Wiki</label>
+        <input type="text" id="wiki-url" name="wiki-url">
+        <br/>
+
+        <label for="freetext">Beschreibung</label>
+        <textarea rows="3" cols="40" id="freetext" name="freetext"></textarea>
+        <br/>
+    </div>
+
+    <input type="submit" id="submit-button" value="Generatorisieren">
+</form>
+</body>
 </html>
