@@ -33,12 +33,11 @@ def publish():
   return redirect("/%s/details/%d" % (t,ident))
 
 
+
 @app.route("/<typ>/qr/<int:ident>")
 def gen_qr(typ=None,ident=None):
   if ident is None: abort (500)
-
   if typ not in ["box","project"]: abort(404)
-
   data = {}
   try: data = db[typ][ident]
   except : abort(404)
@@ -46,14 +45,42 @@ def gen_qr(typ=None,ident=None):
   import qrcode
   import os.path
   qrpath= "qr/%s"%ident
+  if not os.path.isfile(qrpath):  #skip if qrcode has already been written
+    qr = qrcode.QRCode(version=5,error_correction=qrcode.constants.ERROR_CORRECT_Q,box_size=15,border=0)
+    qr.add_data("%s/%s/details/%s"%(app.config["SERVER_NAME"],typ,ident))
+    qr.make(fit=True)
+    img = qr.make_image()
+    img.save(qrpath)
+    generate_cute_qr(qrpath,ident)
 
-  #if not os.path.isfile(qrpath) or True:
-  qr = qrcode.QRCode(version=5,error_correction=qrcode.constants.ERROR_CORRECT_Q,box_size=15,border=0)
+  assert (os.path.isfile(qrpath))
+  f = open(qrpath)
+  #response = make_response(f.read())
+  #f.close()
+  #response.headers["Content-Type"] = "image/png"
+  return send_file(f,mimetype="image/png")
 
-  qr.add_data("%s/%s/%s"%(app.config["SERVER_NAME"],typ,ident))
-  qr.make(fit=True)
-  img = qr.make_image()
-  img.save(qrpath)
+@app.route("/box/details/<int:ident>")
+def handle_box(ident=None):
+  if ident is None:
+    abort (500)
+  data = {}
+  try: 
+    data = db["box"][ident]
+  except : print "Box %d not found" % ident
+  return render_template("box.html",app=app,ident=ident,data=data)
+
+@app.route("/project/details/<int:ident>")
+def handle_project(ident=None):
+  if ident is None:
+    abort (500)
+  data = {}
+  try: 
+    data = db["project"][ident]
+  except : print "Project %d not found" % ident
+  return render_template("project.html",app=app,ident=ident,data=data)
+
+def generate_cute_qr(qrpath,data):
   from PIL import Image, ImageDraw, ImageFont
 
   heading = "A Hacker known as %s" % (data["owner"])
@@ -93,33 +120,6 @@ def gen_qr(typ=None,ident=None):
   draw.bitmap(((im.size[0]-offsetX)/2 - (qr.size[0]/2 - offsetX), im.size[1]/2.2), qr, fill="#000000")
   del draw
   im.save(qrpath, "PNG")
-
-  assert (os.path.isfile(qrpath))
-  f = open(qrpath)
-  #response = make_response(f.read())
-  #f.close()
-  #response.headers["Content-Type"] = "image/png"
-  return send_file(f,mimetype="image/png")
-
-@app.route("/box/details/<int:ident>")
-def handle_box(ident=None):
-  if ident is None:
-    abort (500)
-  data = {}
-  try: 
-    data = db["box"][ident]
-  except : print "Box %d not found" % ident
-  return render_template("box.html",app=app,ident=ident,data=data)
-
-@app.route("/project/details/<int:ident>")
-def handle_project(ident=None):
-  if ident is None:
-    abort (500)
-  data = {}
-  try: 
-    data = db["project"][ident]
-  except : print "Project %d not found" % ident
-  return render_template("project.html",app=app,ident=ident,data=data)
 
 if __name__ == "__main__":
   #url_for('static', filename='index.js')
