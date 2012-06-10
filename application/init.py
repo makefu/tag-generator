@@ -51,7 +51,7 @@ def gen_qr(typ=None,ident=None):
     qr.make(fit=True)
     img = qr.make_image()
     img.save(qrpath)
-    generate_cute_qr(qrpath,ident)
+    generate_cute_qr(qrpath,data)
 
   assert (os.path.isfile(qrpath))
   f = open(qrpath)
