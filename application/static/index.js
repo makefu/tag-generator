@@ -9,6 +9,8 @@
         }
         $('#item-type-box').click(function(){
             details.fadeOut();
+            $("#wiki-url").val("")
+            $("#freetext").val("")
         });
 
         $('#item-type-project').click(function(){
