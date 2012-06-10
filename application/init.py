@@ -44,7 +44,7 @@ def gen_qr(typ=None,ident=None):
 
   import qrcode
   import os.path
-  qrpath= "qr/%s"%ident
+  qrpath= "qr/%s_%s"%(typ,ident)
   if not os.path.isfile(qrpath):  #skip if qrcode has already been written
     qr = qrcode.QRCode(version=5,error_correction=qrcode.constants.ERROR_CORRECT_Q,box_size=15,border=0)
     qr.add_data("%s/%s/details/%s"%(app.config["SERVER_NAME"],typ,ident))
