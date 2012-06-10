@@ -61,6 +61,7 @@ def gen_qr(typ=None,ident=None):
   twittertext= "Twitter: %s" %data["twitter"]
   urltext = "URL: %s" %data["url"]
   freitext = "%s"%data["text"]
+  textOffset =0
 
   im = Image.open("../resources/A6_300dpi.png")
   qr = Image.open(qrpath)
@@ -78,9 +79,16 @@ def gen_qr(typ=None,ident=None):
   #Text
   textWidth, textHeight = draw.textsize(emailtext, font=textFont)
   draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), im.size[1]/5), emailtext, font=textFont, fill="#000000") 
-  draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), (im.size[1]/5)+textHeight), twittertext, font=textFont, fill="#000000") 
-  draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), (im.size[1]/5)+2*textHeight), urltext, font=textFont, fill="#000000") 
-  draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), (im.size[1]/5)+4*textHeight), freitext, font=textFont, fill="#000000") 
+  textOffset += textHeight
+  if data["twitter"]:
+    draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), (im.size[1]/5)+textOffset), twittertext, font=textFont, fill="#000000") 
+    textOffset += textHeight
+  if data["url"]:
+    draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), (im.size[1]/5)+textOffset), urltext, font=textFont, fill="#000000") 
+    textOffset += textHeight
+  if data["text"]: #add another line 
+    draw.text((((im.size[0]- offsetX)/2) - (textWidth/2 - offsetX), (im.size[1]/5)+textOffset+textHeight), freitext, font=textFont, fill="#000000") 
+
   #QR-Code
   draw.bitmap(((im.size[0]-offsetX)/2 - (qr.size[0]/2 - offsetX), im.size[1]/2.2), qr, fill="#000000")
   del draw
