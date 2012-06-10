@@ -60,25 +60,30 @@ def gen_qr(typ=None,ident=None):
   #response.headers["Content-Type"] = "image/png"
   return send_file(f,mimetype="image/png")
 
-@app.route("/box/details/<int:ident>")
-def handle_box(ident=None):
-  if ident is None:
-    abort (500)
-  data = {}
-  try: 
-    data = db["box"][ident]
-  except : print "Box %d not found" % ident
-  return render_template("box.html",app=app,ident=ident,data=data)
+@app.route("/<typ>/details/<int:ident>")
+def details_for(typ,ident=None):
+  """
+  returns details for box or project
+  """
+  if typ not in ["box","project"]: abort(404)
+  if ident is None: abort (500)
 
-@app.route("/project/details/<int:ident>")
-def handle_project(ident=None):
-  if ident is None:
-    abort (500)
   data = {}
-  try: 
-    data = db["project"][ident]
-  except : print "Project %d not found" % ident
-  return render_template("project.html",app=app,ident=ident,data=data)
+  try: data = db[typ][ident]
+  except : print "%s %d not found" % (typ,ident)
+  return render_template("%s.html" %typ,app=app,ident=ident,data=data)
+
+@app.route("/<typ>/details/<int:ident>/json")
+def json_for(typ,ident=None):
+  import json
+  if typ not in ["box","project"]: abort(404)
+  if ident is None: abort (500)
+
+  data = {}
+  try: data = db[typ][ident]
+  except : abort(404)
+  return json.dumps(data)
+
 
 def generate_cute_qr(qrpath,data):
   from PIL import Image, ImageDraw, ImageFont
@@ -122,7 +127,9 @@ def generate_cute_qr(qrpath,data):
   im.save(qrpath, "PNG")
 
 if __name__ == "__main__":
+  from os import system
   #url_for('static', filename='index.js')
   #url_for('static', filename='jquery-1.7.2.min.js')
   app.debug = True
+  system("rm qr/*")
   app.run(host= "0.0.0.0",port=8080)
