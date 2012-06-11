@@ -1,0 +1,7 @@
+Flask==0.8
+Jinja2==2.6
+Pillow==1.7.7
+Werkzeug==0.8.3
+argparse==1.2.1
+qrcode==2.4.1
+wsgiref==0.1.2
