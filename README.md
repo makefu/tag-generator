@@ -13,3 +13,14 @@ virtualenv .
 . bin/activate
 pip install -r < requirements.txt
 ```
+
+Running the Server
+=================
+
+Flask
+-----
+0. cd application
+1. Set Server Name:
+  ```sed -i 's/incept.krebsco.de:8080/HOST:PORT/' init.py```
+2. python init.py
+
