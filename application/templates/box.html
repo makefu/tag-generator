@@ -6,7 +6,7 @@
 <body>
 <div class="container">
     {% if data %}
-        <h1>Box {{ident}}</h1>
+        <h1> Box {{ident}} </h1>
 
         <h3>
             Owner: {{data.owner}}
@@ -14,16 +14,22 @@
                 {{data.email}}
             </a>)
         </h3>
+
+        <h3>
+            Telephone:
+            {{ data.telephone }}
+        </h3>
+
         <img src="/box/qr/{{ident}}" alt="box qrcode">
 
         <p>
             Or the url:
-            <a href="http://{{app.config['SERVER_NAME']}}/box/details/{{ident}}">
-                http://{{app.config['SERVER_NAME']}}/box/details/{{ident}}
+            <a href="http://{{app.config["SERVER_NAME"]}}/box/details/{{ident}}">
+                http://{{app.config["SERVER_NAME"]}}/box/details/{{ident}}
             </a>
         </p>
     {% else %}
-        <h1>Unknown Box, sorry</h1>
+        <h1>Unknown Box `{{ ident }}`, sorry</h1>
     {% endif %}
 </div>
 
