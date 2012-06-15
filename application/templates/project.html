@@ -2,20 +2,45 @@
 <html>
 <head>
     <link href="/static/bootstrap.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      {% if data %}
-      <h1>Project {{ident}}</h1>
-      <h3>Owner: {{data.owner}}(<a href="mailto:{{data.email}}">{{data.email}}</a>)</h3>
-      <h3>Shackspace URL: <a href="http://{{data.url}}">http://{{data.url}}</a><h3>
-      <h3>Additional Text: {{data.text}}<h3>
-      <img src="/project/qr/{{ident}}" alt="project qrcode"></img>
-      <p>Or the url: <a href="http://{{app.config["SERVER_NAME"]}}/project/details/{{ident}}">http://{{app.config["SERVER_NAME"]}}/project/details/{{ident}}</a></p>
-      {% else %}
-      <h1>Unknown Project `{{ident}}`, sorry<h2>
-      {% endif %}
-    </div>
+</head>
+<body>
+<div class="container">
+    {% if data %}
+        <h1> Project {{ ident }} </h1>
 
-  </body>
+        <h3>
+            Owner: {{ data.owner }}
+            (<a href="mailto:{{data.email}}">
+                {{ data.email }}
+            </a>)
+        </h3>
+
+        <h3>
+            Shackspace URL:
+            <a href="http://{{data.url}}">
+                http://{{ data.url }}
+            </a>
+        </h3>
+
+        <h3>
+            Telephone:
+            {{ data.telephone }}
+        </h3>
+
+        <h3> Additional Text: {{ data.text }} </h3>
+
+        <img src="/project/qr/{{ident}}" alt="project qrcode">
+
+        <p>
+            Or the url:
+            <a href="http://{{app.config["SERVER_NAME"]}}/project/details/{{ident}}">
+                http://{{ app.config["SERVER_NAME"] }}/project/details/{{ ident }}
+            </a>
+        </p>
+    {% else %}
+        <h1>Unknown Project `{{ ident }}`, sorry</h1>
+    {% endif %}
+</div>
+
+</body>
 </html>
