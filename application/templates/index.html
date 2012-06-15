@@ -1,65 +1,80 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <link href="/static/bootstrap.css" rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      <h1>Generate QR-Code</h1>
-      <p class="lead">Add your project or box and generate a fancy QR Code</p>
+</head>
+<body>
+<div class="container">
+    <h1>Generate QR-Code</h1>
 
-      <form method="POST" action="/publish" class="form-horizontal">
+    <p class="lead">Add your project or box and generate a fancy QR Code</p>
+
+    <form method="POST" action="/publish" class="form-horizontal">
         <div class="control-group">
-          <label class="control-label">Owner</label>
-          <div class="controls">
-            <input type="text" id="owner-name" name="owner-name">
-          </div>
+            <label class="control-label">Owner</label>
+
+            <div class="controls">
+                <input type="text" id="owner-name" name="owner-name">
+            </div>
         </div>
         <div class="control-group">
-          <label class="control-label">E-Mail</label>
-          <div class="controls">
-            <input type="text" id="owner-email" name="owner-email">
-          </div>
+            <label class="control-label">E-Mail</label>
+
+            <div class="controls">
+                <input type="text" id="owner-email" name="owner-email">
+            </div>
         </div>
         <div class="control-group">
-          <label class="control-label">Twitter</label>
-          <div class="controls">
-            <input type="text" id="owner-twitter" name="owner-twitter">
-          </div>
+            <label class="control-label">Twitter</label>
+
+            <div class="controls">
+                <input type="text" id="owner-twitter" name="owner-twitter">
+            </div>
         </div>
 
         <div class="control-group">
-          <label class="control-label">Typ</label>
-          <div class="controls">
-            <label class="radio">Projekt
-              <input type="radio" name="item-type" id="item-type-project" value="item-type-project">
-            </label>
-            <label class ="radio">Box
-              <input type="radio" name="item-type" id="item-type-box" value="item-type-box" checked>
-            </label>
-          </div>
+            <label class="control-label">Telephone</label>
+
+            <div class="controls">
+                <input type="text" id="owner-telephone" name="owner-telephone">
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Typ</label>
+
+            <div class="controls">
+                <label class="radio">Projekt
+                    <input type="radio" name="item-type" id="item-type-project" value="item-type-project">
+                </label>
+                <label class="radio">Box
+                    <input type="radio" name="item-type" id="item-type-box" value="item-type-box" checked>
+                </label>
+            </div>
         </div>
         <div id="item-details">
-          <div class="control-group">
-            <label class="control-label">URL (im shack-Wiki)</label>
-            <div class="controls">
-              <input type="text" id="wiki-url" name="wiki-url">
-            </div>
-          </div>
+            <div class="control-group">
+                <label class="control-label">URL (in shack-Wiki)</label>
 
-          <div class="control-group">
-            <label class="control-label">Freitext</label>
-            <div class="controls">
-              <textarea rows="3" cols="40" id="freetext" name="freetext"></textarea>
+                <div class="controls">
+                    <input type="text" id="wiki-url" name="wiki-url">
+                </div>
             </div>
-          </div>
+
+            <div class="control-group">
+                <label class="control-label">Freetext</label>
+
+                <div class="controls">
+                    <textarea rows="3" cols="40" id="freetext" name="freetext"></textarea>
+                </div>
+            </div>
         </div>
         <div class="controls">
-          <input type="submit" class="btn" id="submit-button" value="Generatorisieren">
+            <input type="submit" class="btn" id="submit-button" value="Generatorisieren">
         </div>
-      </form>
-    </div>
-    <script type="text/javascript" src="/static/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/static/index.js"></script>
-  </body>
+    </form>
+</div>
+<script type="text/javascript" src="/static/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="/static/index.js"></script>
+</body>
 </html>
