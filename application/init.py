@@ -1,7 +1,7 @@
-app.config["SERVER_NAME"] = "incept.krebsco.de:8080"
 from flask import Flask, url_for, render_template, request, abort, make_response, send_file, redirect
 
 app = Flask(__name__)
+app.config["SERVER_NAME"] = "incept.krebsco.de:8080"
 
 # in-memory database
 db = {"box": [], "project": []}
