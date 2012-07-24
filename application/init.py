@@ -1,7 +1,7 @@
 from flask import Flask, url_for, render_template, request, abort, make_response, send_file, redirect
 
 app = Flask(__name__)
-app.config["SERVER_NAME"] = "incept.krebsco.de:8080"
+app.config["SERVER_NAME"] = "127.0.0.1:8080"
 
 # in-memory database
 db = {"box": [], "project": []}
@@ -150,7 +150,7 @@ def generate_cute_qr(qrpath, data):
         draw.text((text_offsetX, text_baseline + textOffset), freitext, font=textFont, fill="#000000")
 
     #QR-Code
-    draw.bitmap(((sizeX - offsetX) / 2 - (qr.size[0] / 2 - offsetX), sizeY / 2.2), qr, fill="#000000")
+    im.paste(qr,(int((sizeX - offsetX) / 2 - (qr.size[0] / 2 - offsetX)), int(sizeY / 2.2)))
     del draw
     im.save(qrpath, "PNG")
 
