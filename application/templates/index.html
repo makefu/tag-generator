@@ -4,10 +4,12 @@
     <link href="/static/bootstrap.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<div class="hero-unit">
     <h1>Generate QR-Code</h1>
 
-    <p class="lead">Add your project or box and generate a fancy QR Code</p>
+    <p>Add your project or box and generate a fancy QR Code</p>
+</div>
+<div class="container">
 
     <form method="POST" action="/publish" class="form-horizontal">
         <div class="control-group">
@@ -70,7 +72,7 @@
             </div>
         </div>
         <div class="controls">
-            <input type="submit" class="btn" id="submit-button" value="Generatorisieren">
+            <input type="submit" class="btn btn-primary btn-large" id="submit-button" value="Generatorisieren">
         </div>
     </form>
 </div>
