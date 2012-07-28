@@ -19,24 +19,26 @@ def publish():
         owner = request.form["owner-name"]
         email = request.form["owner-email"]
         twitter = request.form["owner-twitter"]
-        type = request.form["item-type"]
+        item_type = request.form["item-type"]
         url = request.form["wiki-url"]
         text = request.form["freetext"]
         telephone = request.form["owner-telephone"]
     except:
         abort(500)
 
-    if type == "item-type-project":
-        type = "project"
-    elif type == "item-type-box":
-        type = "box"
+    if item_type == "item-type-project":
+        item_type = "project"
+        qr_data = url
+    elif item_type == "item-type-box":
+        item_type = "box"
+        qr_data = "mailto:%s" % email
     else:
         return "WTF?"
 
-    ident = len(db[type])
-    db[type].append({"owner": owner, "email": email, "ident": ident, "url": url, "text": text, "twitter": twitter,
-                     "telephone": telephone,})
-    return redirect("/%s/details/%d" % (type, ident))
+    ident = len(db[item_type])
+    db[item_type].append({"owner": owner, "email": email, "ident": ident, "url": url, "text": text, "twitter": twitter,
+        "telephone": telephone, "qr_data": qr_data,})
+    return redirect("/%s/details/%d" % (item_type, ident))
 
 
 @app.route("/<typ>/qr/<int:ident>")
@@ -53,7 +55,7 @@ def gen_qr(typ=None, ident=None):
     qrpath = "qr/%s_%s" % (typ, ident)
     if not os.path.isfile(qrpath):  #skip if qrcode has already been written
         qr = qrcode.QRCode(version=5, error_correction=qrcode.constants.ERROR_CORRECT_Q, box_size=15, border=0)
-        qr.add_data("%s/%s/details/%s" % (app.config["SERVER_NAME"], typ, ident))
+        qr.add_data("%s" % (data["qr_data"]))
         qr.make(fit=True)
         img = qr.make_image()
         img.save(qrpath)
@@ -150,7 +152,7 @@ def generate_cute_qr(qrpath, data):
         draw.text((text_offsetX, text_baseline + textOffset), freitext, font=textFont, fill="#000000")
 
     #QR-Code
-    im.paste(qr,(int((sizeX - offsetX) / 2 - (qr.size[0] / 2 - offsetX)), int(sizeY / 2.2)))
+    im.paste(qr, (int((sizeX - offsetX) / 2 - (qr.size[0] / 2 - offsetX)), int(sizeY / 2.2)))
     del draw
     im.save(qrpath, "PNG")
 
