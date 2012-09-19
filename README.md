@@ -1,3 +1,8 @@
+Stillstand?
+===========
+
+Der Bronsen steckt mitten im Umzug und hat keine Zeit für die schönen Tickets. Nach dem Umzug geht's wieder weiter.
+
 tag-generator
 =============
 
