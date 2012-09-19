@@ -97,7 +97,7 @@ def details_for(typ, ident=None):
     data = {}
     try: data = db[typ][ident]
     except: print "%s %d not found" % (typ, ident)
-    return render_template("%s.html" % typ, app=app, ident=ident, data=data)
+    return render_template("%s.html" % typ, host=request.host,app=app, ident=ident, data=data)
 
 
 @app.route("/<typ>/details/<int:ident>/json")
