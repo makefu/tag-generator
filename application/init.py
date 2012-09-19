@@ -1,5 +1,6 @@
 from flask import Flask, url_for, render_template, request, abort, make_response, send_file, redirect
 import json
+import re
 app = Flask(__name__)
 
 #app.config["SERVER_NAME"] = "127.0.0.1:8080"
@@ -29,16 +30,24 @@ def hello():
 
 @app.route("/publish", methods=["POST"])
 def publish():
-    """
-    """
     try:
-        owner = request.form["owner-name"]
-        email = request.form["owner-email"]
-        twitter = request.form["owner-twitter"]
-        item_type = request.form["item-type"]
-        url = request.form["wiki-url"]
-        text = request.form["freetext"]
-        telephone = request.form["owner-telephone"]
+        EVIL=re.compile('["\'<>!;#{}`]')
+
+        owner = EVIL.sub("_",request.form["owner-name"])
+        print owner
+        email = EVIL.sub("_",request.form["owner-email"])
+        print email
+        twitter = EVIL.sub("_",request.form["owner-twitter"])
+        print "twitter"+twitter
+        item_type = EVIL.sub("_",request.form["item-type"])
+        wiki_id = request.form.get("wiki-id","")
+        if request.form.get("wiki-id"):
+            url = "shackspace.de/wiki/doku.php?id=" + \
+                EVIL.sub("_",wiki_id)
+        else:
+            url = ""
+        text = EVIL.sub("_",request.form["freetext"])
+        telephone = EVIL.sub("_",request.form["owner-telephone"])
     except:
         abort(500)
 
@@ -119,7 +128,7 @@ def generate_cute_qr(qrpath, data):
     heading = "A Hacker known as %s" % (data["owner"])
     emailtext = "Email: %s" % data["email"]
     twittertext = "Twitter: %s" % data["twitter"]
-    urltext = "URL: %s" % data["url"]
+    urltext = "URL: http://%s" % data["url"]
     freitext = "%s" % data["text"]
     telephonetext = "Telephone: %s" % data["telephone"]
     textOffset = 0
@@ -140,9 +149,8 @@ def generate_cute_qr(qrpath, data):
     headingWidth, headingHeight = draw.textsize(heading, font=headingFont)
     sizeX = im.size[0]
     sizeY = im.size[1]
-
-    draw.text((((sizeX - offsetX) / 2) - (headingWidth / 2 - offsetX), sizeY / 8),
-        heading, font=headingFont, fill="#000000")
+    draw.text((((sizeX - offsetX) / 2) - (headingWidth / 2 - offsetX), sizeY / 8), 
+            heading, font=headingFont, fill="#000000")
 
     #Text
     textWidth, textHeight = draw.textsize(emailtext, font=textFont)
