@@ -146,7 +146,7 @@ def generate_cute_qr(qrpath, data):
 
     #Text
     textWidth, textHeight = draw.textsize(emailtext, font=textFont)
-    text_offsetX = ((sizeX - offsetX) / 2) - (textWidth / 2 - offsetX)
+    text_offsetX = ((sizeX - offsetX) / 3)
     text_baseline = (sizeY / 5)
 
     draw.text((text_offsetX, sizeY / 5), emailtext, font=textFont, fill="#000000")
