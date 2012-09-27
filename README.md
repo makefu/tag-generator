@@ -11,6 +11,11 @@ Die Projekte des [shacks](http://shackspace.de/) sollen getaggt werden
 Environment
 ===========
 
+System Packages
+---------------
+```
+${installer}python-pip python-virtualenv gcc
+```
 virtualenv
 ---------
 ```
