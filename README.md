@@ -14,7 +14,7 @@ Environment
 System Packages
 ---------------
 ```
-${installer}python-pip python-virtualenv gcc
+${installer}python-pip python-virtualenv gcc python-dev
 ```
 virtualenv
 ---------
