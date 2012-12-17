@@ -1,10 +1,26 @@
 from flask import Flask, url_for, render_template, request, abort, make_response, send_file, redirect
-
+import json
 app = Flask(__name__)
-app.config["SERVER_NAME"] = "127.0.0.1:8080"
+
+#app.config["SERVER_NAME"] = "127.0.0.1:8080"
+DB_FILE="db/db.json"
 
 # in-memory database
-db = {"box": [], "project": []}
+
+def save_db():
+  with open(DB_FILE,"w+") as persistence:
+    json.dump(db,persistence)
+    print "db saved"
+    return db
+
+def load_db():
+  try:
+    persistence = open(DB_FILE)
+    return json.load(persistence)
+    print "db loaded"
+  except:
+    print "cannot read db, trying to create it first"
+    return save_db()
 
 @app.route("/")
 def hello():
@@ -38,6 +54,7 @@ def publish():
     ident = len(db[item_type])
     db[item_type].append({"owner": owner, "email": email, "ident": ident, "url": url, "text": text, "twitter": twitter,
         "telephone": telephone, "qr_data": qr_data,})
+    save_db()
     return redirect("/%s/details/%d" % (item_type, ident))
 
 
@@ -80,7 +97,7 @@ def details_for(typ, ident=None):
     data = {}
     try: data = db[typ][ident]
     except: print "%s %d not found" % (typ, ident)
-    return render_template("%s.html" % typ, app=app, ident=ident, data=data)
+    return render_template("%s.html" % typ, host=request.host,app=app, ident=ident, data=data)
 
 
 @app.route("/<typ>/details/<int:ident>/json")
@@ -129,7 +146,7 @@ def generate_cute_qr(qrpath, data):
 
     #Text
     textWidth, textHeight = draw.textsize(emailtext, font=textFont)
-    text_offsetX = ((sizeX - offsetX) / 2) - (textWidth / 2 - offsetX)
+    text_offsetX = ((sizeX - offsetX) / 3)
     text_baseline = (sizeY / 5)
 
     draw.text((text_offsetX, sizeY / 5), emailtext, font=textFont, fill="#000000")
@@ -161,5 +178,7 @@ if __name__ == "__main__":
     #url_for('static', filename='index.js')
     #url_for('static', filename='jquery-1.7.2.min.js')
     app.debug = True
-    system("rm qr/*")
+    #system("rm qr/*")
+    db = {"box": [], "project": []}
+    db = load_db()
     app.run(host="0.0.0.0", port=8080)
