@@ -1,7 +1,7 @@
-Stillstand?
+Zustand
 ===========
 
-Der Bronsen steckt mitten im Umzug und hat keine Zeit für die schönen Tickets. Nach dem Umzug geht's wieder weiter.
+Bronsen hat fertig umgezogen, das Projekt wurde umgezogen und nun geht es weiter mit der Implementierung und Verbesserung.
 
 tag-generator
 =============
