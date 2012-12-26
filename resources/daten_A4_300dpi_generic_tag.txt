@@ -1,0 +1,4 @@
+Rand: 40px an jeder Seite
+Abmessung QR: 
+    Oben Links  : 2013 40 
+    Unten Rechts: 3547 1547
