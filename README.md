@@ -6,7 +6,9 @@ Bronsen hat fertig umgezogen, das Projekt wurde umgezogen und nun geht es weiter
 tag-generator
 =============
 
-Die Projekte des [shacks](http://shackspace.de/) sollen getaggt werden
+Die Projekte des [shacks](http://shackspace.de/) sollen getaggt werden.
+
+Das Upstream-Repo beim bronsen ist veraltet. Hier beim shack findet nun die ganze heiße Scheiße statt.
 
 Environment
 ===========
